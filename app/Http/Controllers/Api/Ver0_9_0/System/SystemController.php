@@ -15,6 +15,9 @@ class SystemController extends Controller
 {
     public function info()
     {
-        phpinfo();
+        return [
+            'version'   => '0.9.0',
+            'username'  => 'Terry',
+        ];
     }
 }
