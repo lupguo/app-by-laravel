@@ -15,8 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['namespace' => 'Api\Ver0_9_0\System'], function () {
-
-    Route::get('/phpinfo', 'SystemController@info');
-});
 

@@ -19,9 +19,9 @@ class ApiController extends Controller
     {
         $api = app('Dingo\Api\Routing\Router');
 
-        $this->appVersion = $api->getCurrentRequest()->version();
-
-        $this->appSubtype = $api->getCurrentRequest()->subtype();
+//        $this->appVersion = $api->getCurrentRequest()->version();
+//
+//        $this->appSubtype = $api->getCurrentRequest()->subtype();
     }
 
 }
