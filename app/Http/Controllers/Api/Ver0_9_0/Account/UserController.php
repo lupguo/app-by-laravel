@@ -3,11 +3,7 @@
 namespace App\Http\Controllers\Api\Ver0_9_0\Account;
 
 use App\Http\Controllers\Api\ApiController;
-use Dingo\Api\Auth\Auth;
-use Dingo\Api\Auth\Provider\JWT;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Tymon\JWTAuth\Facades\JWTFactory;
 use Tymon\JWTAuth\JWTAuth;
 
 class UserController extends ApiController
@@ -80,13 +76,12 @@ class UserController extends ApiController
 //            }
         $appendUserInfo = ['tel' => 18603067721];
 
-        $payload = ['foo' => 'bar', 'baz' => 'bob'];
+        dd(app('api.auth')->attempt());
 
-        $payload = \JWTFactory::make();
+        \Auth::attempt($input);
 
-        dd($payload);
-
-
+        dd(app('api.auth'));
+        dd('dd');
         if ($input['username'] == 'terry' && $input['password'] == '123456') {
             $token = JWTAuth::fromUser($input, $appendUserInfo);
         } else {

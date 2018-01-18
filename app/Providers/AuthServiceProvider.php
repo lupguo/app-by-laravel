@@ -3,14 +3,12 @@
 namespace App\Providers;
 
 use App\Account;
-use Dingo\Api\Auth\Provider\Authorization;
+use Dingo\Api\Auth\Provider\JWT;
 use Dingo\Api\Routing\Route;
 use Illuminate\Http\Request;
-use Dingo\Api\Contract\Auth\Provider as ServiceProvider;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-//class AuthServiceProvider implements ServiceProvider{
-class AuthServiceProvider extends Authorization {
+class AuthServiceProvider extends JWT {
 
     /**
      * Get the providers authorization method.
@@ -19,8 +17,7 @@ class AuthServiceProvider extends Authorization {
      */
     public function getAuthorizationMethod()
     {
-        // TODO: Implement getAuthorizationMethod() method.
-
+        return parent::getAuthorizationMethod();
     }
 
     /**
@@ -33,6 +30,8 @@ class AuthServiceProvider extends Authorization {
      */
     public function authenticate(Request $request, Route $route)
     {
+        return parent::authenticate($request, $route);
+
         // TODO: Implement authenticate() method.
         if ($request->input('password') == '123456') {
             return ['user' => 'Terry.clark'];
