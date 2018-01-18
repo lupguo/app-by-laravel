@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Ver0_9_0\Account;
 
 use App\Http\Controllers\Api\ApiController;
+use Dingo\Api\Auth\Auth;
 use Dingo\Api\Auth\Provider\JWT;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,61 @@ use Tymon\JWTAuth\JWTAuth;
 
 class UserController extends ApiController
 {
+
+    /**
+     * Get a JWT token via given credentials.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login1(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if ($token = $this->guard()->attempt($credentials)) {
+            return $this->respondWithToken($token);
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    /**
+     * Get the authenticated User
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function me()
+    {
+        return response()->json($this->guard()->user());
+    }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => $this->guard()->factory()->getTTL() * 60
+        ]);
+    }
+
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\Guard
+     */
+    public function guard()
+    {
+        return \Auth::guard();
+    }
 
     public function login()
     {
@@ -22,16 +78,13 @@ class UserController extends ApiController
 //            if (! $token = \JWTAuth::attempt($input)) {
 //                return response()->json(['error' => 'invalid_credentials'], 401);
 //            }
-
         $appendUserInfo = ['tel' => 18603067721];
 
-        $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
+        $payload = ['foo' => 'bar', 'baz' => 'bob'];
 
-        $payload = JWTFactory::make($customClaims);
+        $payload = \JWTFactory::make();
 
-        $token1 = \JWT::encode($payload);
-
-        dd($token1);
+        dd($payload);
 
 
         if ($input['username'] == 'terry' && $input['password'] == '123456') {
