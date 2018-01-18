@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
 $api = app('Dingo\Api\Routing\Router');
 
@@ -23,16 +23,14 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v0.9.0', [
     'namespace' => 'App\Http\Controllers\Api\Ver0_9_0'
 ], function(\Dingo\Api\Routing\Router $api){
-
-    $api->post('/user/login', 'Account\UserController@login');
+    $api->any('/user/login', 'Account\UserController@login');
 //    $api->get('/user/info', 'Account\UserController@userInfo');
-
     $api->get('/system/info', 'System\SystemController@info');
 });
 
 //v0.9.5
-$api->version('v0.9.5', [
-    'namespace' => 'App\Http\Controllers\Api\Ver0_9_5'
-], function(\Dingo\Api\Routing\Router $api){
-    $api->get('/system/info', 'System\SystemController@info');
-});
+//$api->version('v0.9.5', [
+//    'namespace' => 'App\Http\Controllers\Api\Ver0_9_5'
+//], function(\Dingo\Api\Routing\Router $api){
+//    $api->get('/system/info', 'System\SystemController@info');
+//});

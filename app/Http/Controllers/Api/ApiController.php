@@ -17,7 +17,7 @@ class ApiController extends Controller
 
     public function __construct()
     {
-        $api = app('Dingo\Api\Routing\Router');
+//        $api = app(' Dingo\Api\Routing\Router');
 
 //        $this->appVersion = $api->getCurrentRequest()->version();
 //

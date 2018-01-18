@@ -17,37 +17,35 @@ class UserController extends ApiController
         $input = ['username' => 'terry', 'password' => '123456'];
 
         //认证
-        try {
-            $token = null;
+        $token = null;
 
 //            if (! $token = \JWTAuth::attempt($input)) {
 //                return response()->json(['error' => 'invalid_credentials'], 401);
 //            }
 
-            $appendUserInfo = ['tel' => 18603067721];
+        $appendUserInfo = ['tel' => 18603067721];
 
-            $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
+        $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
 
-            $payload = JWTFactory::make($customClaims);
+        $payload = JWTFactory::make($customClaims);
 
-            $token1 = \JWT::encode($payload);
+        $token1 = \JWT::encode($payload);
+
+        dd($token1);
 
 
-            if ($input['username'] == 'terry' && $input['password'] == '123456') {
-                $token = JWTAuth::fromUser($input, $appendUserInfo);
-            } else {
-                throw new \Exception('认证失败，用户名或密码错误！');
-            }
-
-            $userInfo = [
-                'username' => 'Terry',
-                'ages'     => 29,
-                'sex'      => 'man',
-                'email' => 'cocoglp@163.com',
-            ];
-        } catch (\Exception $e) {
-
+        if ($input['username'] == 'terry' && $input['password'] == '123456') {
+            $token = JWTAuth::fromUser($input, $appendUserInfo);
+        } else {
+            throw new \Exception('认证失败，用户名或密码错误！');
         }
+
+        $userInfo = [
+            'username' => 'Terry',
+            'ages'     => 29,
+            'sex'      => 'man',
+            'email' => 'cocoglp@163.com',
+        ];
 
         return [
             'status' => 200,

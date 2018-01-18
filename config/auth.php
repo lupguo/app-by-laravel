@@ -46,12 +46,6 @@ return [
             'provider' => 'users',
         ],
 
-        'soa' => [
-            'driver'    => 'jwt',
-            'provider'  => 'soa-user',
-        ],
-
-
     ],
 
     /*
@@ -81,9 +75,6 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-        'soa-user' => [
-            'driver' => 'riak',
-        ]
     ],
 
     /*
