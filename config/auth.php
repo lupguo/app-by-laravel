@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -31,7 +31,7 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | Supported: "session", "token"
+    | Supported: "se    ssion", "token"
     |
     */
 
@@ -42,9 +42,10 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'jwt',
             'provider' => 'users',
         ],
+
 
     ],
 
@@ -70,7 +71,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
+//        'soa_user' => \App\Providers\AuthServiceProvider::class,
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

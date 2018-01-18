@@ -2,42 +2,29 @@
 
 namespace App\Providers;
 
-use App\Account;
-use Dingo\Api\Auth\Provider\JWT;
-use Dingo\Api\Routing\Route;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
-class AuthServiceProvider extends JWT {
+class AuthServiceProvider extends ServiceProvider
+{
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        'App\Model' => 'App\Policies\ModelPolicy',
+    ];
 
     /**
-     * Get the providers authorization method.
+     * Register any authentication / authorization services.
      *
-     * @return string
+     * @return void
      */
-    public function getAuthorizationMethod()
+    public function boot()
     {
-        return parent::getAuthorizationMethod();
-    }
+        $this->registerPolicies();
 
-    /**
-     * Authenticate the request and return the authenticated user instance.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Dingo\Api\Routing\Route $route
-     *
-     * @return mixed
-     */
-    public function authenticate(Request $request, Route $route)
-    {
-        return parent::authenticate($request, $route);
-
-        // TODO: Implement authenticate() method.
-        if ($request->input('password') == '123456') {
-            return ['user' => 'Terry.clark'];
-        }
-
-        throw new UnauthorizedHttpException('Unable to authenticate with supplied username and password.');
+        //
     }
 }
-

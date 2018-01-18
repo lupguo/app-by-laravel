@@ -8,26 +8,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -35,8 +15,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTIdentifier()
     {
-        return 888;
-        // TODO: Implement getJWTIdentifier() method.
+        return $this->getKey();
     }
 
     /**
@@ -46,7 +25,8 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        // TODO: Implement getJWTCustomClaims() method.
-        return ['nickname' => 'terry', 'ages' => 29];
+        return [];
     }
+
+
 }
