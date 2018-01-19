@@ -169,7 +169,6 @@ return [
     */
 
     'auth' => [
-        'jwt' => \App\Providers\AuthServiceProvider::class,
         'jwt' => Dingo\Api\Auth\Provider\JWT::class,
     ],
 

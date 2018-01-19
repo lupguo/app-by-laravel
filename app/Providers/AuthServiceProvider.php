@@ -2,22 +2,13 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
+use App\Authentication\SoaUserProvider;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
-class AuthServiceProvider extends ServiceProvider
-{
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
-    ];
+class AuthServiceProvider extends ServiceProvider {
 
     /**
-     * Register any authentication / authorization services.
+     * 注册任意应用认证／授权服务。
      *
      * @return void
      */
@@ -25,6 +16,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        //用户认证
+        \Auth::provider('soa-users', function ($app, array $config) {
+            // 返回 Illuminate\Contracts\Auth\UserProvider 实例...
+
+            return new SoaUserProvider();
+        });
     }
 }
+

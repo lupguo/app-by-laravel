@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\Ver0_9_0\Account;
 
 use App\Http\Controllers\Api\ApiController;
+use App\User;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\JWTAuth;
 
 class UserController extends ApiController
 {
@@ -67,9 +69,6 @@ class UserController extends ApiController
     {
         $input = ['username' => 'terry', 'password' => '123456'];
 
-        $token = \JWTAuth::attempt($input);
-        dd($token);
-
         //认证
         $token = null;
 
@@ -78,9 +77,9 @@ class UserController extends ApiController
 //            }
         $appendUserInfo = ['tel' => 18603067721];
 
-        dd(app('api.auth')->attempt($input));
+        dd(\Auth::attempt($input));
 
-        \Auth::attempt($input);
+        dd(\JWTAuth::fromUser((new User()), [$appendUserInfo]));
 
         dd(app('api.auth'));
         dd('dd');
