@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'app-api',
         'passwords' => 'users',
     ],
 
@@ -41,10 +41,9 @@ return [
             'provider' => 'users',
         ],
 
-        'api' => [
-            'driver'   => 'jwt',
-            'provider' => 'soa-users',
-        ],
+        'app-api' => [
+            'driver' => 'soa-jwt',
+        ]
 
     ],
 
@@ -70,7 +69,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

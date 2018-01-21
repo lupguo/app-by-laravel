@@ -13,7 +13,7 @@ class User implements JWTSubject
      */
     public function getJWTIdentifier()
     {
-        return $this->getKey();
+        return 'gearbest-app';
     }
 
     /**
@@ -23,7 +23,10 @@ class User implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'nickname'  => 'terry',
+            'telphone'  => 18503099999
+        ];
     }
 
 

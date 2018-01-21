@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Ver0_9_0\Account;
 
+use App\Authentication\SoaUserProvider;
 use App\Http\Controllers\Api\ApiController;
 use App\User;
 use Illuminate\Http\Request;
@@ -77,12 +78,13 @@ class UserController extends ApiController
 //            }
         $appendUserInfo = ['tel' => 18603067721];
 
-        dd(\Auth::attempt($input));
+//        dd(app('auth')->guard('app-api')->attempt($input));
+//
+//        dd(app('api.auth')->setUser((new SoaUserProvider()))->getUser());
 
-        dd(\JWTAuth::fromUser((new User()), [$appendUserInfo]));
+        exit(\JWTAuth::fromUser((new User())));
 
         dd(app('api.auth'));
-        dd('dd');
         if ($input['username'] == 'terry' && $input['password'] == '123456') {
             $token = JWTAuth::fromUser($input, $appendUserInfo);
         } else {
