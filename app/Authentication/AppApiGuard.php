@@ -16,160 +16,42 @@ namespace App\Authentication;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\StatefulGuard;
-use Tymon\JWTAuth\JWTGuard;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
-class AppApiGuard implements StatefulGuard
+class AppApiGuard implements Auth
 {
 
-    public function __construct()
+    /**
+     * Check a user's credentials.
+     *
+     * @param  array $credentials
+     *
+     * @return mixed
+     */
+    public function byCredentials(array $credentials)
     {
-
+        // TODO: Implement byCredentials() method.
     }
 
     /**
-     * Determine if the current user is authenticated.
+     * Authenticate a user via the id.
      *
-     * @return bool
-     */
-    public function check()
-    {
-        // TODO: Implement check() method.
-    }
-
-    /**
-     * Determine if the current user is a guest.
+     * @param  mixed $id
      *
-     * @return bool
+     * @return mixed
      */
-    public function guest()
+    public function byId($id)
     {
-        // TODO: Implement guest() method.
+        // TODO: Implement byId() method.
     }
 
     /**
      * Get the currently authenticated user.
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return mixed
      */
     public function user()
     {
         // TODO: Implement user() method.
     }
-
-    /**
-     * Get the ID for the currently authenticated user.
-     *
-     * @return int|null
-     */
-    public function id()
-    {
-        // TODO: Implement id() method.
-    }
-
-    /**
-     * Validate a user's credentials.
-     *
-     * @param  array $credentials
-     *
-     * @return bool
-     */
-    public function validate(array $credentials = [])
-    {
-        // TODO: Implement validate() method.
-    }
-
-    /**
-     * Set the current user.
-     *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     *
-     * @return void
-     */
-    public function setUser(Authenticatable $user)
-    {
-        // TODO: Implement setUser() method.
-    }
-
-    /**
-     * Attempt to authenticate a user using the given credentials.
-     *
-     * @param  array $credentials
-     * @param  bool  $remember
-     *
-     * @return bool
-     */
-    public function attempt(array $credentials = [], $remember = false)
-    {
-
-        return 'helloToken';
-        // TODO: Implement attempt() method.
-    }
-
-    /**
-     * Log a user into the application without sessions or cookies.
-     *
-     * @param  array $credentials
-     *
-     * @return bool
-     */
-    public function once(array $credentials = [])
-    {
-        // TODO: Implement once() method.
-    }
-
-    /**
-     * Log a user into the application.
-     *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  bool                                       $remember
-     *
-     * @return void
-     */
-    public function login(Authenticatable $user, $remember = false)
-    {
-        // TODO: Implement login() method.
-    }
-
-    /**
-     * Log the given user ID into the application.
-     *
-     * @param  mixed $id
-     * @param  bool  $remember
-     *
-     * @return \Illuminate\Contracts\Auth\Authenticatable
-     */
-    public function loginUsingId($id, $remember = false)
-    {
-        // TODO: Implement loginUsingId() method.
-    }
-
-    /**
-     * Log the given user ID into the application without sessions or cookies.
-     *
-     * @param  mixed $id
-     *
-     * @return bool
-     */
-    public function onceUsingId($id)
-    {
-        // TODO: Implement onceUsingId() method.
-    }
-
-    /**
-     * Determine if the user was authenticated via "remember me" cookie.
-     *
-     * @return bool
-     */
-    public function viaRemember()
-    {
-        // TODO: Implement viaRemember() method.
-    }
-
-    /**
-     * Log the user out of the application.
-     *
-     * @return void
-     */
-    public function logout() {
- // TODO: Implement logout() method.
-}}
+}

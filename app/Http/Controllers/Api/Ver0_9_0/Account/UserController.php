@@ -79,14 +79,13 @@ class UserController extends ApiController
         $appendUserInfo = ['nickName' => 'clark', 'email' => 'clark@gmail.com'];
 
         //认证
-        $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
+//        $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
+//        $payload = app('tymon.jwt')->customClaims($appendUserInfo);
+//        $token = app('tymon.jwt.manager')->encode($payload);
+//
+//        $token = JWTAuth::encode($payload);
 
-        dd(app('tymon.jwt.auth')->authenticate());
-        $payload = app('tymon.jwt')->customClaims($appendUserInfo);
-        $token = app('tymon.jwt.manager')->encode($payload);
-
-        $token = JWTAuth::encode($payload);
-
+        dd(app('auth'));
         exit($token = app('tymon.jwt')->fromUser(new SoaUser($userId, $appendUserInfo)));
 
 //        dd(app('auth')->guard('app-api')->attempt($input));

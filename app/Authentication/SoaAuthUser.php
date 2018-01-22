@@ -10,9 +10,10 @@
 namespace App\Authentication;
 
 
-use Tymon\JWTAuth\Contracts\Providers\Auth;
 
-class SoaAuthUser implements Auth
+use Tymon\JWTAuth\JWTAuth;
+
+class SoaAuthUser extends JWTAuth
 {
 
     /**
