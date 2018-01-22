@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Authentication\SoaGuard;
-use App\Authentication\SoaUserProvider;
+use App\Authentication\AppApiGuard;
+use App\Authentication\SoaUser;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider {
@@ -18,14 +18,14 @@ class AuthServiceProvider extends ServiceProvider {
         $this->registerPolicies();
 
         //认证驱动
-        \Auth::extend('soa-jwt', function($app) {
-            return new SoaGuard();
+        \Auth::extend('d-driver', function($app) {
+            return new AppApiGuard();
         });
 
         //用户认证
-        \Auth::provider('soa-users', function ($app, array $config) {
+        \Auth::provider('d-user-provider', function ($app, array $config) {
             // 返回 Illuminate\Contracts\Auth\UserProvider 实例...
-            return new SoaUserProvider();
+            return new SoaUser();
         });
     }
 }

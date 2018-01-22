@@ -28,6 +28,4 @@ class User implements JWTSubject
             'telphone'  => 18503099999
         ];
     }
-
-
 }

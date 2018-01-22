@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Ver0_9_0\Account;
 
-use App\Authentication\SoaUserProvider;
+use App\Authentication\SoaUser;
 use App\Http\Controllers\Api\ApiController;
 use App\User;
 use Illuminate\Http\Request;
@@ -36,6 +36,9 @@ class UserController extends ApiController
      */
     public function me()
     {
+        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGFyYXZlbC1hcHAubmV0L3VzZXIvbG9naW4iLCJpYXQiOjE1MTY2MDI3MzMsImV4cCI6MTUxNjYwNjMzMywibmJmIjoxNTE2NjAyNzMzLCJqdGkiOiJnTW5xTExqQXRFU05OMERFIiwic3ViIjozODMsInBydiI6Ijg1MzIzODFhZjA0NmJiZGJmODNhODlmMDBhZGY1OTJjOTZhZDliOWQiLCJuaWNrTmFtZSI6ImNsYXJrIiwiZW1haWwiOiJjbGFya0BnbWFpbC5jb20ifQ.Nl_gV_mAwSzlnC-T4w76UZryV9z2yo81XW7AZMRz9VI';
+
+        dd(app('tymon.jwt')->setToken($token)->check());
         return response()->json($this->guard()->user());
     }
 
@@ -70,24 +73,31 @@ class UserController extends ApiController
     {
         $input = ['username' => 'terry', 'password' => '123456'];
 
-        //认证
-        $token = null;
+        //todo 基于input从soa、db或第三方认证成功后，获取到用户信息
 
-//            if (! $token = \JWTAuth::attempt($input)) {
-//                return response()->json(['error' => 'invalid_credentials'], 401);
-//            }
-        $appendUserInfo = ['tel' => 18603067721];
+        $userId = rand(0,1000);
+        $appendUserInfo = ['nickName' => 'clark', 'email' => 'clark@gmail.com'];
+
+        //认证
+        $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
+
+        dd(app('tymon.jwt.auth')->authenticate());
+        $payload = app('tymon.jwt')->customClaims($appendUserInfo);
+        $token = app('tymon.jwt.manager')->encode($payload);
+
+        $token = JWTAuth::encode($payload);
+
+        exit($token = app('tymon.jwt')->fromUser(new SoaUser($userId, $appendUserInfo)));
 
 //        dd(app('auth')->guard('app-api')->attempt($input));
 //
 //        dd(app('api.auth')->setUser((new SoaUserProvider()))->getUser());
+        dd(app('auth')->guard('d-guard')->attempt($input));
 
         exit(\JWTAuth::fromUser((new User())));
 
-        dd(app('api.auth'));
         if ($input['username'] == 'terry' && $input['password'] == '123456') {
             $token = JWTAuth::fromUser($input, $appendUserInfo);
-        } else {
             throw new \Exception('认证失败，用户名或密码错误！');
         }
 

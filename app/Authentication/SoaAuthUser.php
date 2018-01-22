@@ -1,6 +1,6 @@
 <?php
 /**
- * Your file description.
+ * Authenticatable 定义了一个可以被用来认证的模型或类需要实现的接口，也就是说，如果需要用一个自定义的类来做认证，需要实现这个接口定义的方法。
  *
  * @author  Terry (psr100)
  * @date    2018/1/19
@@ -10,69 +10,42 @@
 namespace App\Authentication;
 
 
-use Illuminate\Contracts\Auth\Authenticatable;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
-class SoaAuthUser implements Authenticatable
+class SoaAuthUser implements Auth
 {
 
     /**
-     * Get the name of the unique identifier for the user.
+     * Check a user's credentials.
      *
-     * @return string
-     */
-    public function getAuthIdentifierName()
-    {
-        // TODO: Implement getAuthIdentifierName() method.
-    }
-
-    /**
-     * Get the unique identifier for the user.
+     * @param  array $credentials
      *
      * @return mixed
      */
-    public function getAuthIdentifier()
+    public function byCredentials(array $credentials)
     {
-        // TODO: Implement getAuthIdentifier() method.
+        // TODO: Implement byCredentials() method.
     }
 
     /**
-     * Get the password for the user.
+     * Authenticate a user via the id.
      *
-     * @return string
+     * @param  mixed $id
+     *
+     * @return mixed
      */
-    public function getAuthPassword()
+    public function byId($id)
     {
-        // TODO: Implement getAuthPassword() method.
+        // TODO: Implement byId() method.
     }
 
     /**
-     * Get the token value for the "remember me" session.
+     * Get the currently authenticated user.
      *
-     * @return string
+     * @return mixed
      */
-    public function getRememberToken()
+    public function user()
     {
-        // TODO: Implement getRememberToken() method.
+        // TODO: Implement user() method.
     }
-
-    /**
-     * Set the token value for the "remember me" session.
-     *
-     * @param  string $value
-     *
-     * @return void
-     */
-    public function setRememberToken($value)
-    {
-        // TODO: Implement setRememberToken() method.
-    }
-
-    /**
-     * Get the column name for the "remember me" token.
-     *
-     * @return string
-     */
-    public function getRememberTokenName()
-    {
-        // TODO: Implement getRememberTokenName() method.
-}}
+}
