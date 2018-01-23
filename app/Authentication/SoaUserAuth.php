@@ -11,10 +11,14 @@ namespace App\Authentication;
 
 
 
-use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
-class SoaAuthUser extends JWTAuth
+class SoaUserAuth implements Auth
 {
+    /**
+     * @var SoaUser
+     */
+    private $soaUser;
 
     /**
      * Check a user's credentials.
@@ -25,7 +29,18 @@ class SoaAuthUser extends JWTAuth
      */
     public function byCredentials(array $credentials)
     {
-        // TODO: Implement byCredentials() method.
+        //TODO : soa auth by credentials
+        if (true) {
+            $userId = rand(1,1000);
+            $userInfo = [
+                'nickname' => 'clark@gmail.com',
+                'ages'     => '30',
+                'randkey'  => str_random(20),
+            ];
+
+            //初始化登陆用户
+            return $this->soaUser = (new SoaUser())->setUserInfo($userId, $userInfo);
+        }
     }
 
     /**
@@ -37,7 +52,7 @@ class SoaAuthUser extends JWTAuth
      */
     public function byId($id)
     {
-        // TODO: Implement byId() method.
+        //TODO : soa auth by userID
     }
 
     /**
@@ -47,6 +62,6 @@ class SoaAuthUser extends JWTAuth
      */
     public function user()
     {
-        // TODO: Implement user() method.
+        return $this->soaUser;
     }
 }

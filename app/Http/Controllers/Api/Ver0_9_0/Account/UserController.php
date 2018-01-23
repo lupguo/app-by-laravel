@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Ver0_9_0\Account;
 
+use App\Authentication\AppApiGuard;
 use App\Authentication\SoaUser;
 use App\Http\Controllers\Api\ApiController;
 use App\User;
@@ -18,12 +19,14 @@ class UserController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login1(Request $request)
+    public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
         if ($token = $this->guard()->attempt($credentials)) {
-            return $this->respondWithToken($token);
+            return response()->json([
+                'token' => $token
+            ]);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
@@ -62,14 +65,14 @@ class UserController extends ApiController
     /**
      * Get the guard to be used during authentication.
      *
-     * @return \Illuminate\Contracts\Auth\Guard
+     * @return AppApiGuard
      */
     public function guard()
     {
-        return \Auth::guard();
+        return \Auth::guard('d-guard');
     }
 
-    public function login()
+    public function login1()
     {
         $input = ['username' => 'terry', 'password' => '123456'];
 
@@ -85,7 +88,7 @@ class UserController extends ApiController
 //
 //        $token = JWTAuth::encode($payload);
 
-        dd(app('auth'));
+        dd($this->guard()->check());
         exit($token = app('tymon.jwt')->fromUser(new SoaUser($userId, $appendUserInfo)));
 
 //        dd(app('auth')->guard('app-api')->attempt($input));

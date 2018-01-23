@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'd-guard',
+        'guard' => 'web',
         'passwords' => 'users',
     ],
 
@@ -69,17 +69,13 @@ return [
     */
 
     'providers' => [
-//        'users' => [
-//            'driver' => 'eloquent',
-//            'model' => App\User::class,
-//        ],
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
         'soa-users' => [
             'driver' => 'd-user-provider',
         ]
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

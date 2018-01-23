@@ -16,42 +16,169 @@ namespace App\Authentication;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\StatefulGuard;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
 
-class AppApiGuard implements Auth
+class AppApiGuard implements StatefulGuard
 {
 
     /**
-     * Check a user's credentials.
+     * Soa用户认实例
      *
-     * @param  array $credentials
-     *
-     * @return mixed
+     * @var SoaUserAuth
      */
-    public function byCredentials(array $credentials)
+    private $soaUserAuth;
+
+
+    public function __construct()
     {
-        // TODO: Implement byCredentials() method.
+        $this->soaUserAuth = new SoaUserAuth();
     }
 
     /**
-     * Authenticate a user via the id.
+     * Determine if the current user is authenticated.
      *
-     * @param  mixed $id
-     *
-     * @return mixed
+     * @return bool
      */
-    public function byId($id)
+    public function check()
     {
-        // TODO: Implement byId() method.
+        // TODO: Implement check() method.
+    }
+
+    /**
+     * Determine if the current user is a guest.
+     *
+     * @return bool
+     */
+    public function guest()
+    {
+        // TODO: Implement guest() method.
     }
 
     /**
      * Get the currently authenticated user.
      *
-     * @return mixed
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
     public function user()
     {
         // TODO: Implement user() method.
+    }
+
+    /**
+     * Get the ID for the currently authenticated user.
+     *
+     * @return int|null
+     */
+    public function id()
+    {
+        // TODO: Implement id() method.
+    }
+
+    /**
+     * Validate a user's credentials.
+     *
+     * @param  array $credentials
+     *
+     * @return bool
+     */
+    public function validate(array $credentials = [])
+    {
+        // TODO: Implement validate() method.
+    }
+
+    /**
+     * Set the current user.
+     *
+     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
+     *
+     * @return void
+     */
+    public function setUser(Authenticatable $user)
+    {
+        // TODO: Implement setUser() method.
+    }
+
+    /**
+     * Attempt to authenticate a user using the given credentials.
+     *
+     * @param  array $credentials
+     * @param  bool  $remember
+     *
+     * @return bool
+     */
+    public function attempt(array $credentials = [], $remember = false)
+    {
+        $soaUser = $this->soaUserAuth->byCredentials($credentials);
+
+        return $token = app('tymon.jwt')->fromUser($soaUser);
+    }
+
+
+    /**
+     * Log a user into the application without sessions or cookies.
+     *
+     * @param  array $credentials
+     *
+     * @return bool
+     */
+    public function once(array $credentials = [])
+    {
+        // TODO: Implement once() method.
+    }
+
+    /**
+     * Log a user into the application.
+     *
+     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param  bool                                       $remember
+     *
+     * @return void
+     */
+    public function login(Authenticatable $user, $remember = false)
+    {
+        // TODO: Implement login() method.
+    }
+
+    /**
+     * Log the given user ID into the application.
+     *
+     * @param  mixed $id
+     * @param  bool  $remember
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     */
+    public function loginUsingId($id, $remember = false)
+    {
+        // TODO: Implement loginUsingId() method.
+    }
+
+    /**
+     * Log the given user ID into the application without sessions or cookies.
+     *
+     * @param  mixed $id
+     *
+     * @return bool
+     */
+    public function onceUsingId($id)
+    {
+        // TODO: Implement onceUsingId() method.
+    }
+
+    /**
+     * Determine if the user was authenticated via "remember me" cookie.
+     *
+     * @return bool
+     */
+    public function viaRemember()
+    {
+        // TODO: Implement viaRemember() method.
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @return void
+     */
+    public function logout() {
+     // TODO: Implement logout() method.
     }
 }
