@@ -30,7 +30,7 @@ class SoaUser implements JWTSubject
      *
      * @return $this
      */
-    public function setUserInfo($userId, $appendUserInfo = [])
+    public function appendInfo($userId, $appendUserInfo = [])
     {
         $this->userId   = $userId;
         $this->userInfo = $appendUserInfo;
@@ -38,14 +38,6 @@ class SoaUser implements JWTSubject
         return $this;
     }
 
-    /**
-     * 获取用户的基本信息
-     *
-     */
-    public function getUserInfo()
-    {
-        return $this->userInfo;
-    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
