@@ -32,18 +32,16 @@ class SoaUserAuth implements Auth
         //TODO : soa auth by credentials
         if (true) {
             $userId = rand(1,1000);
-            $userInfo = [
+            $appendInfo = [
                 'nickname' => 'clark@gmail.com',
                 'ages'     => '30',
-                'randkey'  => str_random(20),
             ];
 
             //初始化登陆用户
-            return $this->soaUser = (new SoaUser())->appendInfo($userId, $userInfo);
+            return $this->soaUser = new SoaUser($userId, $appendInfo);
         }
 
-        throw new AuthExceptions('用户名密码认证失败!');
-
+        //throw new AuthExceptions('用户名密码认证失败!');
     }
 
     /**
@@ -56,19 +54,6 @@ class SoaUserAuth implements Auth
     public function byId($id)
     {
         //TODO : soa auth by userID
-
-        if (true) {
-            $userId = rand(1,1000);
-            $userInfo = [
-                'nickname' => 'clark@gmail.com',
-                'randkey'  => str_random(20),
-            ];
-
-            //初始化登陆用户
-            return $this->soaUser = (new SoaUser())->appendInfo($userId, $userInfo);
-        }
-
-        throw new AuthExceptions('用户名密码认证失败!');
     }
 
     /**

@@ -13,7 +13,7 @@ namespace App\Authentication;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class SoaUser implements JWTSubject, Authenticatable
+class SoaUser2 implements JWTSubject, Authenticatable
 {
     /**
      * @var array 用户信息
