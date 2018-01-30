@@ -19,4 +19,5 @@ use Illuminate\Auth\TokenGuard;
 class AppApiGuard extends TokenGuard
 {
 
+
 }

@@ -23,8 +23,6 @@ class UserController extends ApiController
     {
         $credentials = $request->only('email', 'password');
 
-        \Auth::guest()
-
         if ($token = $this->guard()->attempt($credentials)) {
             return response()->json([
                 'token' => $token
