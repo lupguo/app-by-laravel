@@ -15,9 +15,20 @@ namespace App\Authentication;
 
 
 use Illuminate\Auth\TokenGuard;
+use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Http\Request;
 
 class AppApiGuard extends TokenGuard
 {
 
+    public function __construct(UserProvider $provider, Request $request)
+    {
+        parent::__construct($provider, $request);
+    }
+
+    public function attempt($credentials)
+    {
+        return $this->provider->retrieveByCredentials($credentials);
+    }
 
 }

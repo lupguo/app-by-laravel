@@ -9,60 +9,70 @@
 
 namespace App\Authentication;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 
-
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-
-class SoaUserAuth implements Auth
+class SoaUserAuth implements Authenticatable
 {
-    /**
-     * @var SoaUser
-     */
-    private $soaUser;
 
     /**
-     * Check a user's credentials.
+     * Get the name of the unique identifier for the user.
      *
-     * @param  array $credentials
-     *
-     * @return mixed
+     * @return string
      */
-    public function byCredentials(array $credentials)
+    public function getAuthIdentifierName()
     {
-        //TODO : soa auth by credentials
-        if (true) {
-            $userId = rand(1,1000);
-            $appendInfo = [
-                'nickname' => 'clark@gmail.com',
-                'ages'     => '30',
-            ];
-
-            //初始化登陆用户
-            return $this->soaUser = new SoaUser($userId, $appendInfo);
-        }
-
-        //throw new AuthExceptions('用户名密码认证失败!');
+        return 'userId';
     }
 
     /**
-     * Authenticate a user via the id.
-     *
-     * @param  mixed $id
+     * Get the unique identifier for the user.
      *
      * @return mixed
      */
-    public function byId($id)
+    public function getAuthIdentifier()
     {
-        //TODO : soa auth by userID
+
     }
 
     /**
-     * Get the currently authenticated user.
+     * Get the password for the user.
      *
-     * @return mixed
+     * @return string
      */
-    public function user()
+    public function getAuthPassword()
     {
-        return $this->soaUser;
+        // TODO: Implement getAuthPassword() method.
+    }
+
+    /**
+     * Get the token value for the "remember me" session.
+     *
+     * @return string
+     */
+    public function getRememberToken()
+    {
+        // TODO: Implement getRememberToken() method.
+    }
+
+    /**
+     * Set the token value for the "remember me" session.
+     *
+     * @param  string $value
+     *
+     * @return void
+     */
+    public function setRememberToken($value)
+    {
+        // TODO: Implement setRememberToken() method.
+    }
+
+    /**
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        // TODO: Implement getRememberTokenName() method.
     }
 }

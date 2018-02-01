@@ -15,6 +15,8 @@ class SystemController extends Controller
 {
     public function info()
     {
+        dd(\Auth::guard('d-guard')->attempt([]));
+
         return [
             'version'   => '0.9.0',
             'username'  => 'Terry',
