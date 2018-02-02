@@ -8,7 +8,7 @@
  */
 
 // start profiling
-xhprof_enable();
+//xhprof_enable();
 
 define('LARAVEL_START', microtime(true));
 
@@ -60,18 +60,18 @@ $response = $kernel->handle(
 
 
 // stop profiler
-$xhprof_data = xhprof_disable();
-
-$xhprof_root_path = resource_path('xhprof_lib');
-require $xhprof_root_path . "/utils/xhprof_lib.php";
-require $xhprof_root_path . "/utils/xhprof_runs.php";
-
-// save raw data for this profiler run using default
-// implementation of iXHProfRuns.
-$xhprof_runs = new XHProfRuns_Default();
-
-// save the run under a namespace "xhprof_foo"
-$run_id = $xhprof_runs->save_run($xhprof_data, "xhprof_foo");
+//$xhprof_data = xhprof_disable();
+//
+//$xhprof_root_path = resource_path('xhprof_lib');
+//require $xhprof_root_path . "/utils/xhprof_lib.php";
+//require $xhprof_root_path . "/utils/xhprof_runs.php";
+//
+//// save raw data for this profiler run using default
+//// implementation of iXHProfRuns.
+//$xhprof_runs = new XHProfRuns_Default();
+//
+//// save the run under a namespace "xhprof_foo"
+//$run_id = $xhprof_runs->save_run($xhprof_data, "xhprof_foo");
 
 // finish profiler
 

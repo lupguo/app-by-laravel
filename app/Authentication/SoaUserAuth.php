@@ -10,9 +10,21 @@
 namespace App\Authentication;
 
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\UserProvider;
 
 class SoaUserAuth implements Authenticatable
 {
+
+    /**
+     *
+     * @var 用户提供者
+     */
+    protected $userId ;
+
+    public function __construct($userId)
+    {
+        $this->userId = $userId;
+    }
 
     /**
      * Get the name of the unique identifier for the user.
@@ -21,17 +33,17 @@ class SoaUserAuth implements Authenticatable
      */
     public function getAuthIdentifierName()
     {
-        return 'userId';
+
     }
 
     /**
-     * Get the unique identifier for the user.
+     * 返回已认证的用户的UID
      *
      * @return mixed
      */
     public function getAuthIdentifier()
     {
-
+        return $this->userId;
     }
 
     /**

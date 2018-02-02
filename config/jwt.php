@@ -200,50 +200,5 @@ return [
 
     'blacklist_grace_period' => env('JWT_BLACKLIST_GRACE_PERIOD', 0),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Providers
-    |--------------------------------------------------------------------------
-    |
-    | Specify the various providers used throughout the package.
-    |
-    */
-
-    'providers' => [
-
-        /*
-        |--------------------------------------------------------------------------
-        | JWT Provider
-        |--------------------------------------------------------------------------
-        |
-        | Specify the provider that is used to create and decode the tokens.
-        |
-        */
-
-        'jwt' => Tymon\JWTAuth\Providers\JWT\Namshi::class,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Authentication Provider
-        |--------------------------------------------------------------------------
-        |
-        | Specify the provider that is used to authenticate users.
-        |
-        */
-
-        'auth' => Tymon\JWTAuth\Providers\Auth\Illuminate::class,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Storage Provider
-        |--------------------------------------------------------------------------
-        |
-        | Specify the provider that is used to store tokens in the blacklist.
-        |
-        */
-
-        'storage' => Tymon\JWTAuth\Providers\Storage\Illuminate::class,
-
-    ],
 
 ];

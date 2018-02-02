@@ -22,8 +22,20 @@ class SoaUser implements UserProvider
      */
     protected $app;
 
-    public function __construct($app)
+    /**
+     * @var AppApiGuard
+     */
+    protected $guard;
+
+    /**
+     * SoaUser constructor.
+     *
+     * @param AppApiGuard $guard
+     * @param             $app
+     */
+    public function __construct(AppApiGuard $guard, $app)
     {
+        $this->guard = $guard;
         $this->app = $app;
     }
 
@@ -36,7 +48,12 @@ class SoaUser implements UserProvider
      */
     public function retrieveById($identifier)
     {
+        //todo 基于用户UID从SOA获取对应的用户明细
+        if (true) {
+            return new SoaUserAuth($identifier);
+        }
 
+        return null;
     }
 
     /**
@@ -74,29 +91,15 @@ class SoaUser implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
-        //TODO : soa auth by credentials
-        //$loginRs = soa_login($credentials);
-        //if ($loginRs == ture) ...
-
-        if (true) {
-            $userId = rand(1,1000);
-            $appendInfo = [
-                'nickname' => 'clark@gmail.com',
-                'ages'     => '30',
-            ];
-
-            //初始化登陆用户
-            $key = "clark";
-            $token = array(
-                "iss" => "http://example.org",
-                "aud" => "http://example.com",
-                "iat" => time(),
-                "nbf" => time()+3600*24*30,
-                "sub" => $userId,
-            );
-
-            return JWT::encode($token, $key);
+        if ( ! isset($credentials['api_token'])) {
+            return ;
         }
+
+        if (false != ($payload = $this->parserJwt($credentials['api_token']))) {
+            return new SoaUserAuth($payload['sub']);
+        }
+
+        return ;
     }
 
     /**
@@ -110,5 +113,46 @@ class SoaUser implements UserProvider
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
 
+    }
+
+    /**
+     * 解析jwt，获取payload内容
+     *
+     * @param $jwt
+     *
+     * @return array|bool
+     */
+    public function parserJwt($jwt)
+    {
+        try {
+            JWT::$leeway = 60; // $leeway in seconds
+            $payload = JWT::decode($jwt, config('jwt.secret'), ['HS256', 'HS512']);
+
+            return (array)$payload;
+        } catch (\Exception $exception) {
+
+            return false;
+        }
+    }
+
+    /**
+     * 创建JWT token
+     *
+     * @param       $subjectId
+     * @param array $payload
+     *
+     * @return string
+     */
+    public function createJwtFromSubjectId($subjectId, array $payload = [])
+    {
+        $payload = array_merge([
+            "iss" => "https://www.gearbest.com",
+            "aud" => "Gearbest App",
+            "iat" => time(),
+            "nbf" => time()+3600*24*30,
+            "sub" => $subjectId,
+        ], $payload);
+
+        return JWT::encode($payload, config('jwt.secret'), config('jwt.algo'));
     }
 }

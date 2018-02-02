@@ -20,15 +20,41 @@ use Illuminate\Http\Request;
 
 class AppApiGuard extends TokenGuard
 {
+    /**
+     * @var SoaUser
+     */
+    protected $provider;
 
-    public function __construct(UserProvider $provider, Request $request)
-    {
-        parent::__construct($provider, $request);
-    }
-
+    /**
+     * 用户尝试登陆
+     *
+     * @param $credentials
+     *
+     * @return bool
+     */
     public function attempt($credentials)
     {
-        return $this->provider->retrieveByCredentials($credentials);
+        //TODO : soa auth by credentials
+        //$loginRs = soa_login($credentials);
+        // ...
+
+        //认证成功
+        if (true) {
+            $userId = rand(1,1000);
+            $appendInfo = [
+                'nickname' => 'clark@gmail.com',
+                'ages'     => '30',
+            ];
+
+            //初始化登陆用户
+            $this->setUser(new SoaUserAuth($userId));
+
+            //返回jwt
+            return $this->provider->createJwtFromSubjectId($userId, $appendInfo);
+        }
+
+        return false;
     }
+
 
 }

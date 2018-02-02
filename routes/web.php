@@ -18,7 +18,10 @@ Route::group(['namespace' => 'Api\Ver0_9_0'], function(\Illuminate\Routing\Route
 
     $router->any('/user/login', 'Account\UserController@login');
     $router->get('/user/info', 'Account\UserController@me');
-    $router->get('/system/info', 'System\SystemController@info');
+
+    $router->get('/system/login', 'System\SystemController@login');
+    $router->get('/system/info', 'System\SystemController@info')
+        ->middleware('jwt_auth');
 });
 
 

@@ -13,13 +13,14 @@ use App\Http\Controllers\Controller;
 
 class SystemController extends Controller
 {
-    public function info()
+    public function login()
     {
         return \Auth::guard('d-guard')->attempt([]);
 
-        return [
-            'version'   => '0.9.0',
-            'username'  => 'Terry',
-        ];
+    }
+
+    public function info()
+    {
+        return auth('d-guard')->user();
     }
 }

@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider {
 
         //用户认证
         \Auth::provider('d-user-provider', function ($app, array $config) {
-            return new SoaUser($app);
+            return new SoaUser(auth('d-guard'), $app);
         });
     }
 }
