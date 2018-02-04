@@ -16,7 +16,7 @@ class AuthApiToken
     public function handle($request, Closure $next)
     {
         if (false == auth('d-guard')->check()) {
-            return ['status'=> 1, 'msg' => 'auth failed !!'];
+            return ['status'=> 1, 'msg' => 'Api token auth failed !!'];
         }
 
         return $next($request);

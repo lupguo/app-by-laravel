@@ -13,16 +13,8 @@ use App\Http\Controllers\Controller;
 
 class SystemController extends Controller
 {
-    public function login()
-    {
-        return \Auth::guard('d-guard')->attempt([]);
-
-    }
-
     public function info()
     {
-        return response()->json([
-            'user' => auth('d-guard')->user()
-        ]);
+        phpinfo();
     }
 }

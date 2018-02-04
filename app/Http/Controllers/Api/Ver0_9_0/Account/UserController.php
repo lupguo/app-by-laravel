@@ -22,9 +22,12 @@ class UserController extends ApiController
     {
         $credentials = $request->only('email', 'password');
 
+        //api token
         if ($token = $this->guard()->attempt($credentials)) {
             return response()->json([
-                'token' => $token
+                'api_token' => $token,
+                'subtype'   => $this->appSubtype,
+                'version'   => $this->appVersion,
             ]);
         }
 
@@ -32,34 +35,28 @@ class UserController extends ApiController
     }
 
     /**
-     * Get the authenticated User
+     * 用户基本信息
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function info()
     {
-        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGFyYXZlbC1hcHAubmV0L3VzZXIvbG9naW4iLCJpYXQiOjE1MTY2MDI3MzMsImV4cCI6MTUxNjYwNjMzMywibmJmIjoxNTE2NjAyNzMzLCJqdGkiOiJnTW5xTExqQXRFU05OMERFIiwic3ViIjozODMsInBydiI6Ijg1MzIzODFhZjA0NmJiZGJmODNhODlmMDBhZGY1OTJjOTZhZDliOWQiLCJuaWNrTmFtZSI6ImNsYXJrIiwiZW1haWwiOiJjbGFya0BnbWFpbC5jb20ifQ.Nl_gV_mAwSzlnC-T4w76UZryV9z2yo81XW7AZMRz9VI';
+        $userId = $this->guard()->id();
+        //todo 基于UserID从SOA获取明细
 
-        dd(app('tymon.jwt')->setToken($token)->check());
-        return response()->json($this->guard()->user());
-    }
+        $userInfo = [
+            'userId' => $userId,
+        ];
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $this->guard()->factory()->getTTL() * 60
+            'userInfo' => $userInfo
         ]);
     }
 
+    public function userId()
+    {
+        return auth('d-guard')->id();
+    }
 
     /**
      * Get the guard to be used during authentication.
@@ -69,61 +66,5 @@ class UserController extends ApiController
     public function guard()
     {
         return \Auth::guard('d-guard');
-    }
-
-    public function login1()
-    {
-        $input = ['username' => 'terry', 'password' => '123456'];
-
-        //todo 基于input从soa、db或第三方认证成功后，获取到用户信息
-
-        $userId = rand(0,1000);
-        $appendUserInfo = ['nickName' => 'clark', 'email' => 'clark@gmail.com'];
-
-        //认证
-//        $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
-//        $payload = app('tymon.jwt')->customClaims($appendUserInfo);
-//        $token = app('tymon.jwt.manager')->encode($payload);
-//
-//        $token = JWTAuth::encode($payload);
-
-        dd($this->guard()->check());
-        exit($token = app('tymon.jwt')->fromUser(new SoaUser($userId, $appendUserInfo)));
-
-//        dd(app('auth')->guard('app-api')->attempt($input));
-//
-//        dd(app('api.auth')->setUser((new SoaUserProvider()))->getUser());
-        dd(app('auth')->guard('d-guard')->attempt($input));
-
-        exit(\JWTAuth::fromUser((new User())));
-
-        if ($input['username'] == 'terry' && $input['password'] == '123456') {
-            $token = JWTAuth::fromUser($input, $appendUserInfo);
-            throw new \Exception('认证失败，用户名或密码错误！');
-        }
-
-        $userInfo = [
-            'username' => 'Terry',
-            'ages'     => 29,
-            'sex'      => 'man',
-            'email' => 'cocoglp@163.com',
-        ];
-
-        return [
-            'status' => 200,
-            'token'  => $token,
-            'token1'  => $token,
-            'data' => $input,
-            'subtype' => $this->appSubtype,
-            'version' => $this->appVersion,
-        ];
-    }
-
-    public function userInfo()
-    {
-        return [
-            'status' => 200,
-            'data' => '',
-        ];
     }
 }

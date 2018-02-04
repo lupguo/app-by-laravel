@@ -17,20 +17,6 @@ use Illuminate\Contracts\Auth\UserProvider;
 
 class SoaUser implements UserProvider
 {
-    /**
-     * @var \App
-     */
-    protected $app;
-
-    /**
-     * SoaUser constructor.
-     *
-     * @param             $app
-     */
-    public function __construct($app)
-    {
-        $this->app = $app;
-    }
 
     /**
      * Retrieve a user by their unique identifier.
@@ -41,8 +27,12 @@ class SoaUser implements UserProvider
      */
     public function retrieveById($identifier)
     {
-        //todo 基于用户UID从SOA获取对应的用户明细
-        if (true) {
+        //TODO 基于用户UID从SOA获取对应的用户明细
+        $userInfo = [
+            'userId' => $identifier,
+        ];
+
+        if (!empty($userInfo)) {
             return new SoaUserAuth($identifier);
         }
 
@@ -59,21 +49,9 @@ class SoaUser implements UserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
-
+        return $this->retrieveById($identifier);
     }
 
-    /**
-     * Update the "remember me" token for the given user in storage.
-     *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  string                                     $token
-     *
-     * @return void
-     */
-    public function updateRememberToken(Authenticatable $user, $token)
-    {
-
-    }
 
     /**
      * Retrieve a user by the given credentials.
@@ -89,24 +67,12 @@ class SoaUser implements UserProvider
         }
 
         if (false != ($payload = $this->parserJwt($credentials['api_token']))) {
-            return new SoaUserAuth($payload['sub']);
+            return $this->retrieveById($payload['sub']);
         }
 
         return ;
     }
 
-    /**
-     * Validate a user against the given credentials.
-     *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  array                                      $credentials
-     *
-     * @return bool
-     */
-    public function validateCredentials(Authenticatable $user, array $credentials)
-    {
-
-    }
 
     /**
      * 解析jwt，获取payload内容
@@ -123,7 +89,6 @@ class SoaUser implements UserProvider
 
             return (array)$payload;
         } catch (\Exception $exception) {
-//            throw $exception;
             //todo 需要针对解析失败的JWT进行Log记录分析
 
             return false;
@@ -151,5 +116,33 @@ class SoaUser implements UserProvider
         ], $payload);
 
         return JWT::encode($payload, config('jwt.secret'), config('jwt.algo'));
+    }
+
+
+    /**
+     * Update the "remember me" token for the given user in storage.
+     *
+     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param  string                                     $token
+     *
+     * @return void
+     */
+    public function updateRememberToken(Authenticatable $user, $token)
+    {
+
+    }
+
+
+    /**
+     * Validate a user against the given credentials.
+     *
+     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param  array                                      $credentials
+     *
+     * @return bool
+     */
+    public function validateCredentials(Authenticatable $user, array $credentials)
+    {
+
     }
 }

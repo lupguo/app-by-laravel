@@ -20,6 +20,7 @@ class SoaUserAuth implements Authenticatable
      */
     protected $userId ;
 
+
     public function __construct($userId)
     {
         $this->userId = $userId;
@@ -52,7 +53,7 @@ class SoaUserAuth implements Authenticatable
      */
     public function getAuthPassword()
     {
-        // TODO: Implement getAuthPassword() method.
+
     }
 
     /**
@@ -62,7 +63,7 @@ class SoaUserAuth implements Authenticatable
      */
     public function getRememberToken()
     {
-        // TODO: Implement getRememberToken() method.
+
     }
 
     /**
