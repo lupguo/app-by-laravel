@@ -30,10 +30,12 @@ class SoaUser implements UserProvider
         //TODO 基于用户UID从SOA获取对应的用户明细
         $userInfo = [
             'userId' => $identifier,
+            'email' => 'terry@gmail.com',
+            'sex' => 'm',
         ];
 
         if (!empty($userInfo)) {
-            return new SoaUserAuth($identifier);
+            return new SoaUserAuth($identifier, $userInfo);
         }
 
         return null;

@@ -41,18 +41,16 @@ class UserController extends ApiController
      */
     public function info()
     {
-        $userId = $this->guard()->id();
-        //todo 基于UserID从SOA获取明细
-
-        $userInfo = [
-            'userId' => $userId,
-        ];
-
         return response()->json([
-            'userInfo' => $userInfo
+            'userInfo' => $this->guard()->user()->info()
         ]);
     }
 
+    /**
+     * 登陆用户ID
+     *
+     * @return int|null
+     */
     public function userId()
     {
         return auth('d-guard')->id();

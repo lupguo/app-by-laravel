@@ -24,7 +24,12 @@ class AppApiGuard extends TokenGuard
     protected $provider;
 
     /**
-     * 用户尝试登陆
+     * @var SoaUserAuth
+     */
+    protected $user;
+
+    /**
+     * 用户尝试账号密码登陆
      *
      * @param $credentials
      *
@@ -32,11 +37,19 @@ class AppApiGuard extends TokenGuard
      */
     public function attempt($credentials)
     {
-        //TODO : soa auth by credentials
+        //TODO : 基于用户登陆信息从SOA获取明细，基于依赖注入进来
         //$loginRs = soa_login($credentials);
         // ...
         $userId = rand(1,1000);
-        $appendInfo = [
+        $userInfo = [
+            'nickname' => 'clark@gmail.com',
+            'ages'     => '30',
+            'sex' => 'm',
+
+        ];
+
+        //jwt 载体
+        $payload = [
             'nickname' => 'clark@gmail.com',
             'ages'     => '30',
         ];
@@ -44,14 +57,23 @@ class AppApiGuard extends TokenGuard
         //认证成功
         if (true) {
             //初始化登陆用户
-            $this->setUser(new SoaUserAuth($userId));
+            $this->setUser(new SoaUserAuth($userId, $userInfo));
 
             //返回jwt
-            return $this->provider->createJwtFromSubjectId($userId, $appendInfo);
+            return $this->provider->createJwtFromSubjectId($userId, $payload);
         }
 
         return false;
     }
 
+    /**
+     * 获取已认证用户明细
+     *
+     * @return SoaUserAuth
+     */
+    public function user()
+    {
+        return parent::user();
+    }
 
 }

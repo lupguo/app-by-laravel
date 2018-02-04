@@ -16,14 +16,49 @@ class SoaUserAuth implements Authenticatable
 
     /**
      *
-     * @var 用户提供者
+     * @var integer 用户提供者
      */
     protected $userId ;
 
+    /**
+     * @var array 用户基础信息
+     */
+    protected $userInfo;
 
-    public function __construct($userId)
+    /**
+     * SoaUserAuth constructor.
+     *
+     * @param       $userId
+     * @param array $userInfo
+     */
+    public function __construct($userId = 0, array $userInfo = [])
     {
         $this->userId = $userId;
+        $this->userInfo = $userInfo;
+    }
+
+    /**
+     * 获取已认证用户基本信息
+     *
+     * @param $name
+     *
+     * @return mixed|null
+     */
+    public function __get($property)
+    {
+        return isset($this->userInfo[$property]) ? $this->userInfo[$property] : null;
+    }
+
+    /**
+     * 获取已认证用户明细
+     *
+     * @param $property
+     *
+     * @return array|mixed|null
+     */
+    public function info($property = null)
+    {
+        return isset($property) ? $this->__get($property) : $this->userInfo;
     }
 
     /**
