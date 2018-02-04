@@ -7,7 +7,6 @@ use App\Authentication\SoaUser;
 use App\Http\Controllers\Api\ApiController;
 use App\User;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\JWTAuth;
 
 class UserController extends ApiController
 {

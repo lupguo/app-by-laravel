@@ -13,24 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-//
-//$api = app('Dingo\Api\Routing\Router');
-//
-////v0.9.0
-//$api->version('v0.9.0', [
-//    'namespace' => 'App\Http\Controllers\Api\Ver0_9_0'
-//], function(\Dingo\Api\Routing\Router $api){
-//    $api->any('/user/login', 'Account\UserController@login');
-////    $api->get('/user/info', 'Account\UserController@userInfo');
-//    $api->get('/system/info', 'System\SystemController@info');
-//});
+Route::group([
+    'namespace' => 'Api\Ver0_9_0',
+], function(\Illuminate\Routing\Router $router) {
 
-//v0.9.5
-//$api->version('v0.9.5', [
-//    'namespace' => 'App\Http\Controllers\Api\Ver0_9_5'
-//], function(\Dingo\Api\Routing\Router $api){
-//    $api->get('/system/info', 'System\SystemController@info');
-//});
+    $router->any('/', 'System\TestController@welcome');
+    $router->any('/info', 'System\TestController@info');
+
+    $router->any('/user/login', 'Account\UserController@login');
+    $router->get('/user/info', 'Account\UserController@me');
+
+    $router->get('/system/login', 'System\SystemController@login');
+    $router->get('/system/info', 'System\SystemController@info')
+           ->middleware('jwt_auth');
+});

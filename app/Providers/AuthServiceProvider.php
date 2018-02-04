@@ -19,13 +19,12 @@ class AuthServiceProvider extends ServiceProvider {
 
         //认证驱动
         \Auth::extend('d-driver', function ($app, $name, array $config) {
-
             return new AppApiGuard(\Auth::createUserProvider($config['provider']),  app('request'));
         });
 
         //用户认证
         \Auth::provider('d-user-provider', function ($app, array $config) {
-            return new SoaUser(auth('d-guard'), $app);
+            return new SoaUser($app);
         });
     }
 }

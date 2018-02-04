@@ -15,8 +15,6 @@ namespace App\Authentication;
 
 
 use Illuminate\Auth\TokenGuard;
-use Illuminate\Contracts\Auth\UserProvider;
-use Illuminate\Http\Request;
 
 class AppApiGuard extends TokenGuard
 {
@@ -37,15 +35,14 @@ class AppApiGuard extends TokenGuard
         //TODO : soa auth by credentials
         //$loginRs = soa_login($credentials);
         // ...
+        $userId = rand(1,1000);
+        $appendInfo = [
+            'nickname' => 'clark@gmail.com',
+            'ages'     => '30',
+        ];
 
         //认证成功
         if (true) {
-            $userId = rand(1,1000);
-            $appendInfo = [
-                'nickname' => 'clark@gmail.com',
-                'ages'     => '30',
-            ];
-
             //初始化登陆用户
             $this->setUser(new SoaUserAuth($userId));
 

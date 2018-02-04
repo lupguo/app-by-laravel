@@ -21,6 +21,8 @@ class SystemController extends Controller
 
     public function info()
     {
-        return auth('d-guard')->user();
+        return response()->json([
+            'user' => auth('d-guard')->user()
+        ]);
     }
 }

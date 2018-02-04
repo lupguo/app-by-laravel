@@ -10,7 +10,6 @@
 namespace App\Authentication;
 
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\UserProvider;
 
 class SoaUserAuth implements Authenticatable
 {

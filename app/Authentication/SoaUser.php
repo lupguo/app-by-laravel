@@ -23,19 +23,12 @@ class SoaUser implements UserProvider
     protected $app;
 
     /**
-     * @var AppApiGuard
-     */
-    protected $guard;
-
-    /**
      * SoaUser constructor.
      *
-     * @param AppApiGuard $guard
      * @param             $app
      */
-    public function __construct(AppApiGuard $guard, $app)
+    public function __construct($app)
     {
-        $this->guard = $guard;
         $this->app = $app;
     }
 
@@ -130,6 +123,8 @@ class SoaUser implements UserProvider
 
             return (array)$payload;
         } catch (\Exception $exception) {
+//            throw $exception;
+            //todo 需要针对解析失败的JWT进行Log记录分析
 
             return false;
         }
@@ -145,11 +140,13 @@ class SoaUser implements UserProvider
      */
     public function createJwtFromSubjectId($subjectId, array $payload = [])
     {
+        $nowTime = time();
         $payload = array_merge([
             "iss" => "https://www.gearbest.com",
             "aud" => "Gearbest App",
-            "iat" => time(),
-            "nbf" => time()+3600*24*30,
+            "iat" => $nowTime,
+            "nbf" => $nowTime,
+            "exp" => $nowTime+ config('jwt.ttl')*60,
             "sub" => $subjectId,
         ], $payload);
 
