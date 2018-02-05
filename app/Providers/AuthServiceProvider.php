@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Authentication\AppApiGuard;
-use App\Authentication\SoaUser;
+use App\Gadgets\ApiAuth\AppApiGuard;
+use App\Gadgets\ApiAuth\SoaUser;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider {

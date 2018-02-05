@@ -7,7 +7,7 @@
  * @since   2018/1/20 15:09
  */
 
-namespace App\Authentication;
+namespace App\Gadgets\ApiAuth;
 
 
 use Firebase\JWT\JWT;

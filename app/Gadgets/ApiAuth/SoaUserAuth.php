@@ -7,7 +7,7 @@
  * @since   2018/1/19 18:22
  */
 
-namespace App\Authentication;
+namespace App\Gadgets\ApiAuth;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 
@@ -40,7 +40,7 @@ class SoaUserAuth implements Authenticatable
     /**
      * 获取已认证用户基本信息
      *
-     * @param $name
+     * @param $property
      *
      * @return mixed|null
      */

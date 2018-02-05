@@ -40,10 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'api' => [
-            'driver' => 'jwt',
-            'provider' => 'users',
-        ],
         'd-guard' => [
             'driver'    => 'd-driver',
             'provider'  => 'soa-users',
@@ -69,10 +65,6 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\User::class,
-        ],
         'soa-users' => [
             'driver' => 'd-user-provider',
         ]

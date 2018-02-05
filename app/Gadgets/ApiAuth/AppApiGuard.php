@@ -11,7 +11,7 @@
  * @since   2018/1/20 9:58
  */
 
-namespace App\Authentication;
+namespace App\Gadgets\ApiAuth;
 
 
 use Illuminate\Auth\TokenGuard;

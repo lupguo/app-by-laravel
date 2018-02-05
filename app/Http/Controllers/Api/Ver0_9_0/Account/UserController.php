@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Api\Ver0_9_0\Account;
 
-use App\Authentication\AppApiGuard;
-use App\Authentication\SoaUser;
+use App\Gadgets\ApiAuth\AppApiGuard;
 use App\Http\Controllers\Api\ApiController;
-use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends ApiController

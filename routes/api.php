@@ -14,7 +14,7 @@
 \Route::group([
     'namespace' => 'Api\Ver0_9_0',
 ], function(\Illuminate\Routing\Router $router) {
-
+    //needless auth
     $router->any('/', 'System\TestController@welcome');
     $router->any('/user/login', 'Account\UserController@login');
 
